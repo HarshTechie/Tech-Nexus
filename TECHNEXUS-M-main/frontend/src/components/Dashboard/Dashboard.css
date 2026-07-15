@@ -1,0 +1,661 @@
+/* ==========================================================================
+   TechNexus Premium Admin Console Stylesheet (Obsidian/SaaS Aesthetic)
+   ========================================================================== */
+
+:root {
+  --dash-bg: #050505;
+  --dash-surface: #0b0b0b;
+  --dash-surface-elevated: #111111;
+  --dash-surface-card: #16171c;
+  --dash-border: rgba(255, 255, 255, 0.05);
+  --dash-border-hover: rgba(255, 255, 255, 0.12);
+  --dash-text-primary: #ffffff;
+  --dash-text-secondary: #dadada;
+  --dash-text-muted: #7f7f7f;
+  
+  --dash-font-sans: "Outfit", "Segoe UI", sans-serif;
+  --dash-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --dash-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-dashboard-wrapper.dark {
+  background-color: var(--dash-bg);
+  color: var(--dash-text-primary);
+  font-family: var(--dash-font-sans);
+  min-height: 100vh;
+  padding: 120px 24px 80px;
+  box-sizing: border-box;
+}
+
+/* ─── Header Workspace ─── */
+.admin-dashboard-header {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-dashboard-header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 40%, #888888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.admin-dashboard-subtitle {
+  font-size: 14px;
+  color: var(--dash-text-secondary);
+  margin: 0;
+}
+
+/* Premium Tab Buttons */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.admin-tabs button {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--dash-border);
+  color: var(--dash-text-secondary);
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--dash-transition);
+  font-family: inherit;
+}
+
+.admin-tabs button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--dash-text-primary);
+}
+
+.admin-tabs button.active-tab {
+  background: #ffffff;
+  color: #050505;
+  border-color: #ffffff;
+  font-weight: 600;
+}
+
+/* ─── Alerts & Status Bars ─── */
+.admin-alert {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.admin-alert.error {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+}
+
+.admin-alert.success {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--dash-border);
+  color: var(--dash-text-primary);
+}
+
+/* ─── Main Content Grid Layout ─── */
+.admin-dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ─── Add Product Sidebar Panel ─── */
+.admin-product-form-container {
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  position: sticky;
+  top: 100px;
+}
+
+.admin-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--dash-surface);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-form-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--dash-text-primary);
+}
+
+.admin-form-icon {
+  font-family: var(--dash-font-mono);
+  font-size: 13px;
+  color: var(--dash-text-muted);
+}
+
+/* Scrollable Form Container */
+.admin-product-form-scroll {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  margin-right: -8px;
+}
+
+/* Custom Scrollbar Styling */
+.admin-product-form-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-product-form-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-product-form-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.admin-product-form-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Firefox Scrollbar */
+.admin-product-form-scroll {
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  scrollbar-width: thin;
+}
+
+.admin-form-group {
+  margin-bottom: 20px;
+}
+
+.admin-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--dash-text-secondary);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.admin-form-input,
+.admin-form-select,
+.admin-form-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--dash-border);
+  border-radius: 6px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #ffffff;
+  transition: var(--dash-transition);
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.admin-form-input:focus,
+.admin-form-select:focus,
+.admin-form-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-form-select option {
+  background: var(--dash-surface-card);
+  color: #ffffff;
+}
+
+.admin-form-textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* Sidebar Submit Button */
+.admin-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  color: #050505;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: var(--dash-transition);
+}
+
+.admin-submit-btn:hover {
+  background: #dadada;
+  transform: translateY(-1px);
+}
+
+.admin-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Active Orders Panel (Grid 1/-1 wide) ─── */
+.admin-products-overview.wide {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.admin-overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--dash-border);
+  padding-bottom: 14px;
+}
+
+.admin-overview-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dash-text-primary);
+  margin: 0;
+}
+
+.admin-product-count {
+  font-family: var(--dash-font-mono);
+  font-size: 10px;
+  color: var(--dash-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Curated Orders Feed */
+.order-feed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.admin-order-card {
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: var(--dash-transition);
+}
+
+.admin-order-card:hover {
+  border-color: var(--dash-border-hover);
+}
+
+.admin-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed var(--dash-border);
+  padding-bottom: 12px;
+}
+
+.admin-order-no {
+  font-family: var(--dash-font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 2px;
+  color: var(--dash-text-primary);
+}
+
+.admin-order-date {
+  font-family: var(--dash-font-mono);
+  font-size: 11px;
+  color: var(--dash-text-muted);
+  margin: 0;
+}
+
+.admin-order-status {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--dash-border);
+  color: var(--dash-text-primary);
+  font-family: var(--dash-font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.admin-order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--dash-text-secondary);
+}
+
+.admin-order-details strong {
+  color: var(--dash-text-primary);
+}
+
+.admin-order-items {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--dash-text-secondary);
+  border-top: 1px solid var(--dash-border);
+  padding-top: 14px;
+}
+
+.admin-order-items li {
+  margin-bottom: 4px;
+}
+
+/* ─── Recently Added Products Panel ─── */
+.admin-products-overview {
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.admin-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.admin-product-card {
+  background: var(--dash-surface-elevated);
+  border: 1px solid var(--dash-border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--dash-transition);
+}
+
+.admin-product-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--dash-border-hover);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.admin-product-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.1;
+  background: #ffffff; /* Clean white backdrop for product silhouettes */
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.admin-product-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: contrast(1.02) brightness(0.98);
+}
+
+.admin-product-category {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--dash-border);
+  color: var(--dash-text-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--dash-font-mono);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
+.admin-product-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--dash-border);
+}
+
+.admin-product-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--dash-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  WebkitLineClamp: 2;
+  WebkitBoxOrient: 'vertical';
+  min-height: 38px;
+}
+
+.admin-product-price {
+  font-family: var(--dash-font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dash-text-primary);
+  margin: 0;
+}
+
+.admin-product-meta {
+  font-family: var(--dash-font-mono);
+  font-size: 10px;
+  color: var(--dash-text-muted);
+  margin: 0;
+}
+
+/* Card Button Triggers */
+.admin-card-btn {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: var(--dash-transition);
+}
+
+.admin-card-btn.edit {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-card-btn.edit:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-card-btn.delete {
+  background: rgba(239, 68, 68, 0.08);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  margin-top: 6px;
+}
+
+.admin-card-btn.delete:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+/* ─── Product Card Edit Panels ─── */
+.admin-product-edit-form {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--dash-surface-elevated);
+}
+
+.admin-product-edit-form h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--dash-text-primary);
+  border-bottom: 1px solid var(--dash-border);
+  padding-bottom: 6px;
+}
+
+.admin-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-edit-field label {
+  font-size: 11px;
+  color: var(--dash-text-muted);
+}
+
+.admin-edit-field input,
+.admin-edit-field select,
+.admin-edit-field textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--dash-border);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-size: 12px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.admin-edit-field input:focus,
+.admin-edit-field select:focus,
+.admin-edit-field textarea:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.admin-edit-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.admin-edit-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  text-transform: uppercase;
+}
+
+.admin-edit-actions button.save {
+  background: #ffffff;
+  color: #050505;
+}
+
+.admin-edit-actions button.save:hover {
+  background: #dadada;
+}
+
+.admin-edit-actions button.cancel {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-edit-actions button.cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Custom Scrollbar for dashboard dark shell */
+.admin-dashboard-wrapper ::-webkit-scrollbar {
+  width: 5px;
+}
+
+.admin-dashboard-wrapper ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-dashboard-wrapper ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.admin-dashboard-wrapper ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .admin-dashboard-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .admin-product-form-container {
+    position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-product-card,
+  .admin-tabs button,
+  .admin-submit-btn,
+  .admin-card-btn,
+  .admin-edit-actions button {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
