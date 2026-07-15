@@ -1,0 +1,93 @@
+# Render Blueprint for TechNexus (https://render.com)
+# Deploys the Express API (web service) and the React app (static site).
+# In the Render dashboard: New + > Blueprint > connect this repo.
+#
+# After the FIRST deploy, set the cross-service URLs (see comments below):
+#   1. Backend  CORS_ORIGIN + FRONTEND_URL  -> the frontend's .onrender.com URL
+#   2. Frontend REACT_APP_API_URL           -> the backend's  .onrender.com URL
+# Then trigger a redeploy of each so the values take effect.
+
+services:
+  # ---------------------------------------------------------------------------
+  # Backend — Node.js + Express API
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: technexus-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Render injects PORT automatically; server.js already reads it.
+
+      # --- Secrets: set these in the dashboard (sync:false = not stored in git) ---
+      - key: MONGODB_URL
+        sync: false          # mongodb+srv://... from MongoDB Atlas
+      - key: STRIPE_SECRET_KEY
+        sync: false          # sk_live_... (or sk_test_... to start)
+      - key: GEMINI_API_KEY
+        sync: false          # Google Gemini API key
+
+      # --- Auto-generated strong secret (>=32 chars, satisfies config.js) ---
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRE
+        value: 24h
+      - key: JWT_REFRESH_EXPIRE
+        value: 7d
+
+      # --- Cross-service URLs: fill in AFTER the frontend URL is known ---
+      - key: CORS_ORIGIN
+        sync: false          # e.g. https://technexus-frontend.onrender.com
+      - key: FRONTEND_URL
+        sync: false          # same frontend URL (used for Stripe redirects)
+
+      # --- AI / checkout config ---
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
+      - key: AI_USE_FALLBACK
+        value: "true"
+      - key: FREE_DELIVERY_THRESHOLD
+        value: "999"
+      - key: SHIPPING_CHARGE
+        value: "49"
+      - key: GST_RATE
+        value: "0.18"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "15000"
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "50"
+      - key: AI_RATE_LIMIT_WINDOW_MS
+        value: "60000"
+      - key: AI_RATE_LIMIT_MAX_REQUESTS
+        value: "10"
+      - key: LOG_LEVEL
+        value: info
+
+  # ---------------------------------------------------------------------------
+  # Frontend — React (Create React App) static site
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: technexus-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    autoDeploy: true
+    # SPA fallback so client-side routes (React Router) don't 404 on refresh.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # CRA reads REACT_APP_* at BUILD time. Set this to the backend URL, then
+      # redeploy so it is baked into the build.
+      - key: REACT_APP_API_URL
+        sync: false          # e.g. https://technexus-backend.onrender.com  (no trailing slash)
+      - key: REACT_APP_STRIPE_PUBLISHABLE_KEY
+        sync: false          # pk_live_... (or pk_test_...)
